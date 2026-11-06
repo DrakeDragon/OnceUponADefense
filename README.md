@@ -12,18 +12,19 @@ This is a static, touch-first game built with HTML, CSS, JavaScript, and Canvas.
 | `.nojekyll` | Lets GitHub Pages publish the static files directly |
 | `README.md` | Deployment instructions and player guide |
 | `art/atlas.webp` | Tower idle sprites, menu portraits, scenery, and enemy fallback art |
+| `art/title.webp` | Painted title-screen scene |
 | `art/ground.webp` | Painted terrain texture |
 | `art/enemy-motion.webp` | Four movement frames for each of the 22 enemies |
 | `art/tower-motion.webp` | Three action frames for each of the 21 towers |
 
-The illustrated combat build includes textured boards, animated enemies and towers, projectile trails, impact sparks, beams, chain lightning, and spell pulses.
+The illustrated combat build includes an illustrated title screen, redesigned menus and game controls, textured boards, animated enemies and towers, projectile trails, impact sparks, beams, chain lightning, and spell pulses.
 
 ## Deploy on GitHub Pages
 
 1. Extract the ZIP. Keep the `art/` folder beside `index.html`.
 2. For an existing site, copy the extracted contents into the folder your repository already publishes. Commit the update to its publishing branch. Keep any existing custom-domain configuration.
 3. For a new site, commit the contents to the root of your repository on `main`. In **Settings → Pages**, choose **Deploy from a branch**, then select **main** and **/ (root)** and save. [GitHub Pages publishing documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
-4. When the deployment succeeds, open the URL shown in **Settings → Pages**. On your phone, start a wave and check that enemies animate and towers show their attack effects. If the old graphics still appear, refresh the page and check that all four WebP files were committed under `art/`.
+4. When the deployment succeeds, open the URL shown in **Settings → Pages**. On your phone, start a wave and check that enemies animate and towers show their attack effects. If the old graphics still appear, refresh the page and check that all five WebP files were committed under `art/`.
 
 Existing progress carries over when you update the same site and open it in the same browser profile. The save is stored locally under `ouad_v1` and is scoped to the site's origin. Changing the domain, using a different browser or device, or clearing site data can make the game start fresh.
 
@@ -167,7 +168,7 @@ Matching your towers to enemy immunities, camouflage and fliers is a big part of
 
 ## Technical notes
 
-- The Canvas renderer caches static terrain and scenery and caps its pixel ratio at 2×. The artwork ships as four WebP files.
+- The Canvas renderer caches static terrain and scenery and caps its pixel ratio at 2×. The artwork ships as five WebP files.
 - Touch-first controls using pointer events; works on desktop too.
 - Everything is stored locally in the browser. Clearing site data resets progress.
 - Waves are generated from a seeded budget formula, so each board plays the same way every time.
