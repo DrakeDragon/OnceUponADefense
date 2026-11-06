@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#120a24">
+<meta name="theme-color" content="#101813">
 <title>Once Upon a Defense</title>
 <style>
 :root{--bg:#120a24;--card:#201540;--cy:#22e5ff;--mg:#ff3df2;--tx:#f1eaff;--mut:#9d8fc4;--ok:#3ddc84;--bad:#ff6b6b;--gold:#ffd43b}
@@ -53,15 +53,84 @@ h1{background:none;color:#f2d698;text-shadow:0 3px 16px #000;font-size:clamp(34p
 button,.card{background:#213128;border:1px solid #8a76524d;box-shadow:0 3px 12px #0003}
 .big{background:linear-gradient(#455745,#253b30);border-color:#a48d56}
 .unit-icon{display:inline-block;width:1.7em;height:1.7em;vertical-align:middle;background:url(art/atlas.webp) no-repeat;background-size:700% 700%;filter:drop-shadow(0 2px 2px #0009)}
+
+/* Title and interface */
+:root{--edge:#a98d5466;--panel:#192820;--ink:#101a15}
+.scr:not(#menu):not(#game){padding-inline:max(16px,calc((100% - 660px)/2));background:radial-gradient(ellipse at top,#283d31,var(--ink) 65%)}
+#menu{padding:0;background:#15251c url(art/title.webp) center 35% / cover no-repeat}
+#menu::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#091810a0 0%,#12261b11 38%,#101d15a0 59%,#0b1510f8 100%)}
+.title-wrap{position:relative;min-height:100%;max-width:510px;margin:auto;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(56px,22vh,210px);padding:max(20px,env(safe-area-inset-top)) 20px max(16px,env(safe-area-inset-bottom))}
+.title-lockup{text-align:center;text-shadow:0 2px 8px #051008,0 4px 22px #051008}
+.title-crest{width:clamp(36px,7vh,59px);filter:drop-shadow(0 3px 8px #07110b)}
+.eyebrow{margin:7px 0 8px;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#f5dfaa;font-weight:800}
+.title-lockup h1{margin:0;line-height:.95;font-size:clamp(48px,12vw,81px);letter-spacing:-.055em;color:#ffe8af;text-shadow:0 2px 0 #61462a,0 5px 18px #08130c}
+.title-lockup h1 span{display:block}
+.title-actions{margin-top:auto}
+.title-actions .primary{min-height:58px;display:flex;align-items:center;justify-content:center;position:relative;font:700 24px Georgia,serif;margin:0 0 10px}
+.primary span{position:absolute;right:18px;font:28px system-ui}
+.title-links{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:6px}
+.title-links button{padding:8px 4px;font-size:clamp(11px,3vw,14px);font-weight:700}
+.title-profile{display:flex;justify-content:center;gap:22px;margin-top:-8px;font-size:12px;color:var(--mut);letter-spacing:.04em}
+.title-wrap{row-gap:12px}
+.title-actions{margin-top:clamp(105px,27vh,320px)}
+@media(min-width:700px){#menu{background-size:auto 125%;background-color:#101c14}}
+button,select,.card{border:1px solid var(--edge);background:linear-gradient(#2a3c30,#1a2921);color:var(--tx);border-radius:10px}
+button{min-height:44px}
+button:focus-visible,select:focus-visible{outline:2px solid #ffe2a0;outline-offset:2px}
+.big{background:linear-gradient(#f1ce83,#b88241);color:#241b10;border-color:#ffe0a0;text-shadow:0 1px #ffe9b655;box-shadow:0 3px 0 #654522,0 6px 16px #07110ca0}
+.back{border:0;background:transparent;box-shadow:none;color:#f0cd91;padding:6px 12px 6px 0}
+.scr>h2{font-size:clamp(25px,6vw,36px);color:#f1d59b;border-bottom:1px solid var(--edge);padding-bottom:10px;margin:5px 0 14px}
+.card{padding:14px;background:linear-gradient(145deg,#2a3a2e,#1a2820);box-shadow:0 5px 14px #0b140f60}
+.card h3{color:#f3d59b}
+#boardlist .card{border-top:2px solid #ba965d}
+#boardlist .card:nth-child(2){border-top-color:#8bba88}
+#boardlist .card:nth-child(3){border-top-color:#d49a84}
+.diff{border-left-width:4px;background:#17271e}
+.de{border-left-color:var(--ok)}.dm{border-left-color:var(--gold)}.dh{border-left-color:var(--bad)}
+.chip{flex:1 1 45%;min-height:86px}
+.chip.sel,.tray button.sel{border-color:#e6c075;background:linear-gradient(#475238,#303c28);box-shadow:inset 0 0 0 1px #e6c07555}
+.chip small{margin-top:5px;line-height:1.35}
+#hud,#panel{background:linear-gradient(#26382c,#16241c);border-color:var(--edge)}
+#hud{gap:4px;padding-inline:6px}
+#hud button{min-height:44px;padding:5px clamp(4px,1.4vw,11px);font-size:clamp(11px,3.1vw,14px)}
+#hud .sp{flex:1;min-width:0}
+.hud-stat{min-width:0;display:grid;justify-items:center;line-height:1.2;padding:0 4px;font-variant-numeric:tabular-nums}
+.hud-stat small{font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.hud-stat b{color:var(--gold);font-size:clamp(12px,3.4vw,16px)}
+#bGo:not(:disabled),#bAuto[aria-pressed="true"]{background:linear-gradient(#f2ce84,#b88547);color:#221b10;border-color:#eaca84}
+#cvw{background:radial-gradient(ellipse,#27392c,#101a15)}
+#cv{box-shadow:0 0 0 1px var(--edge),0 10px 35px #0008}
+#panel{height:clamp(142px,24dvh,188px);padding-bottom:max(8px,env(safe-area-inset-bottom))}
+.tray{gap:4px}
+.tray button{min-width:0;border-color:var(--edge);padding:5px 1px;min-height:59px;font-size:clamp(9px,2.8vw,12px);overflow-wrap:anywhere}
+.tray button b{line-height:1}
+.upb{min-width:0;overflow-wrap:anywhere}
+#modal{background:#0a160edc}
+#mbox{max-height:calc(100dvh - 40px);overflow:auto;border-color:#b99c65;box-shadow:0 20px 60px #000a}
+#mbox h2{color:#f5d698}
+@media(prefers-reduced-motion:reduce){button:active{transform:none}}
 </style></head><body>
-<div id="menu" class="scr on">
- <h1>Once Upon<br>a Defense</h1><p class="sub">A fairytale tower defense</p>
- <button class="big" id="bPlay">▶ Play</button>
- <button class="big" id="bShop" style="background:#2d1f55">Beans  Bean Shop</button>
- <button class="big" id="bGoals" style="background:#2d1f55">🎯 Goals &amp; Unlocks</button>
- <button class="big" id="bLab" style="background:#2d1f55">⚖️ Balance Lab</button>
- <p class="sub">Beans: <span class="beans" id="mBeans">0</span> · Level <span id="mLvl">1</span></p>
-</div>
+<main id="menu" class="scr on">
+ <div class="title-wrap">
+  <header class="title-lockup">
+   <svg class="title-crest" viewBox="0 0 56 64" aria-hidden="true">
+    <path d="M28 3 51 12v19c0 13-9 23-23 30C14 54 5 44 5 31V12Z" fill="#192d25" stroke="#e7bf75" stroke-width="2"/>
+    <path d="M16 42V25h5v-7h5v7h4v-7h5v7h5v17H31v-8h-6v8Z" fill="#e7bf75"/>
+   </svg>
+   <p class="eyebrow">Storybook tower defense</p>
+   <h1><span>Once Upon</span><span>a Defense</span></h1>
+  </header>
+  <nav class="title-actions" aria-label="Main menu">
+   <button class="big primary" id="bPlay">Play <span aria-hidden="true">›</span></button>
+   <div class="title-links">
+    <button id="bShop">Bean Shop</button>
+    <button id="bGoals">Goals &amp; Unlocks</button>
+    <button id="bLab">Balance Lab</button>
+   </div>
+  </nav>
+  <div class="title-profile"><span>Level <strong id="mLvl">1</strong></span><span><strong class="beans" id="mBeans">0</strong> Beans</span></div>
+ </div>
+</main>
 <div id="boards" class="scr"><button class="back" data-go="menu">‹ Back</button><h2>Choose a Board</h2><div id="boardlist"></div></div>
 <div id="loadout" class="scr"><button class="back" data-go="boards">‹ Back</button><h2>Pick up to 6 towers</h2><p class="sub" id="loInfo" style="text-align:left"></p><div class="chips" id="loChips"></div><button class="big" id="loGo">Start</button></div>
 <div id="shop" class="scr"><button class="back" data-go="menu">‹ Back</button><h2>Bean Shop <span class="beans" id="sBeans"></span></h2><div id="shopTowers"></div><h2>Talents</h2><div id="shopPerks"></div><h2>Themes</h2><div id="shopThemes"></div></div>
@@ -72,11 +141,11 @@ button,.card{background:#213128;border:1px solid #8a76524d;box-shadow:0 3px 12px
  <button class="big" id="labRun">Run the bot</button><div id="labOut"></div>
  <h3>Wave threat (total enemy HP)</h3><div id="labThreat"></div></div>
 <div id="game" class="scr">
- <div id="hud"><span id="hLives"></span><span id="hGold"></span><button id="bGo">▶</button><span class="sp"></span>
-  <button id="bAuto">Auto</button><button id="bSpeed">x1</button><button id="bPause">⏸</button></div>
+ <div id="hud"><span class="hud-stat"><small>Lives</small><b id="hLives"></b></span><span class="hud-stat"><small>Gold</small><b id="hGold"></b></span><button id="bGo">▶</button><span class="sp"></span>
+  <button id="bAuto" aria-pressed="false">Auto</button><button id="bSpeed">x1</button><button id="bPause" aria-label="Pause">⏸</button></div>
  <div id="cvw"><canvas id="cv"></canvas><div id="toast"></div></div>
  <div id="panel"></div>
- <div id="modal"><div id="mbox"></div></div>
+ <div id="modal" role="dialog" aria-modal="true" aria-label="Game menu"><div id="mbox"></div></div>
 </div>
 <script>
 'use strict';
@@ -632,7 +701,7 @@ function resize(){
 window.addEventListener('resize',function(){if(G)resize();});
 function startGame(){
  G=C.newGame({mi:cur.mi,di:cur.di,loadout:cur.lo.slice(),perk:S.perk});G.lo=cur.lo.slice();
- selT=null;placing=null;hover=null;paused=false;ended=false;acc=0;spd=0;auto=false;$('bSpeed').textContent='x1';$('bAuto').style.background='';$('modal').classList.remove('on');
+ selT=null;placing=null;hover=null;paused=false;ended=false;acc=0;spd=0;auto=false;$('bSpeed').textContent='x1';$('bAuto').setAttribute('aria-pressed','false');$('modal').classList.remove('on');
  show('game');resize();renderPanel(true);running=true;lastTs=performance.now();requestAnimationFrame(frame);
 }
 function frame(ts){
@@ -649,13 +718,13 @@ function frame(ts){
 var hudC={};
 function sv(id,t){if(hudC[id]!==t){hudC[id]=t;$(id).textContent=t;}}
 function hud(){
- sv('hLives','❤'+G.lives);sv('hGold','Gold '+Math.floor(G.gold));
+ sv('hLives',G.lives);sv('hGold',Math.floor(G.gold));
  var b=$('bGo');b.disabled=G.waveOn||G.over;sv('bGo',G.waveOn?'⚔ '+G.wave+'/'+(G.free?'∞':G.nW):'▶ '+(G.wave+1)+'/'+(G.free?'∞':G.nW));
 }
 $('bGo').onclick=function(){if(G&&!paused)C.startWave(G);};
 $('bSpeed').onclick=function(){spd=(spd+1)%3;this.textContent='x'+SPEEDS[spd];};
-$('bAuto').onclick=function(){auto=!auto;this.style.background=auto?'#0aa5c0':'';};
-$('bPause').onclick=function(){if(!G||G.over)return;paused=true;modal('<h2>Paused</h2><button class="big" id="mRes">Resume</button><button class="big" id="mQuit" style="background:#2d1f55">Quit to boards</button>');
+$('bAuto').onclick=function(){auto=!auto;this.setAttribute('aria-pressed',String(auto));};
+$('bPause').onclick=function(){if(!G||G.over)return;paused=true;modal('<h2>Paused</h2><button class="big" id="mRes">Resume</button><button class="big" id="mQuit" >Quit to boards</button>');
  $('mRes').onclick=function(){paused=false;$('modal').classList.remove('on');};$('mQuit').onclick=function(){stopGame();$('modal').classList.remove('on');show('boards');};};
 document.addEventListener('visibilitychange',function(){if(document.hidden&&G&&!G.over&&running&&!paused)$('bPause').onclick();});
 function modal(h){$('mbox').innerHTML=h;$('modal').classList.add('on');}
@@ -676,7 +745,7 @@ function onOver(){
  if(nl>oldL){var un=Object.keys(C.T).filter(function(id){var l=C.T[id].lvl;return l&&l>oldL&&l<=nl;}).map(function(id){return C.T[id].n;});xpTxt+=' ⬆ LEVEL UP!'+(un.length?' Unlocked: '+un.join(', '):'');}
  S.beans+=b;save();
  var tail='<p class="beans">+Beans  '+b+' beans</p><p>'+extra+'</p><p class="beans" style="color:var(--cy)">'+xpTxt+'</p>';
- var btns='<button class="big" id="mB" style="background:#2d1f55">Boards</button><button class="big" id="mS" style="background:#2d1f55">Bean Shop</button>';
+ var btns='<button class="big" id="mB" >Boards</button><button class="big" id="mS" >Bean Shop</button>';
  if(firstWin)modal('<h2 class="win">🏆 Victory!</h2><p>You cleared all '+G.nW+' waves with '+G.lives+' lives left.</p>'+tail+'<button class="big" id="mFree">♾ Keep going: Free Play</button><p style="color:var(--mut);font-size:13px">Free Play never ends on its own. Waves keep growing and a boss comes every 10 waves. You earn XP and a few beans for the extra waves.</p>'+btns.replace('Boards','Finish and leave'));
  else if(G.free)modal('<h2 class="lose">♾ Free Play Over</h2><p>You made it to wave '+G.wave+' ('+(G.wave-G.nW)+' past the finish).</p>'+tail+'<button class="big" id="mAgain">Play again</button>'+btns);
  else modal('<h2 class="lose">💀 Overrun</h2><p>Reached wave '+G.wave+' of '+G.nW+' · '+G.kills+' enemies defeated.</p>'+tail+'<button class="big" id="mAgain">Play again</button>'+btns);
